@@ -1,23 +1,23 @@
 function TaskCard(){
     return (
-        <div className="bg-cyan-950 text-blue-50 flex rounded-3xl cursor-pointer  items-center flex-col w-[400px] h-[300px] relative left-3 top-5 " >
-            <h1 className="text-3xl bg-white w-[100%]  text-black text-center rounded-tl-3xl rounded-tr-3xl pb-2">
+        <div className="bg-cyan-950 text-blue-50 flex rounded-3xl cursor-move items-center flex-col w-[94%] h-[300px] relative " >
+            <h1 className="text-3xl bg-white w-[100%]  text-black text-center rounded-tl-xl rounded-tr-xl pb-2">
                 code101
             </h1>
-            <div className="mt-10 w-[100%]">
-                <div className="">
-                   <p className="text-xl text-center">
+            <h2 className="text-2xl">3:23:00 </h2>
+            <div className="mt-6 w-[100%] flex flex-col items-center">
+                <div className="w-[96%]">
+                   <p className=" text-center">
                     i will write code for the uncomplete chat project
                 </p>
                 </div>
-                <div className=" absolute bottom-2 flex flex-col w-[100%]"> 
-                <p className="text-2xl text-center  w-[100%]">
-                    start time: 10:0 -- end time : 12:0
-                </p>
-                <p className="text-lg text-center w-[100%]">
-                    total time reserved for the task is: 2 hours
-                </p>
-                </div>           
+                <div className="flex flex-col absolute bottom-5 gap-4">
+                    <h3 className="text-center text-lg">Devoted time : 2 hours </h3>
+                <div className=" bottom-5 flex gap-10  w-[100%] items-center justify-center "> 
+                  <button className="bg-emerald-600 w-[100px] rounded-2xl cursor-pointer h-[35px]">Start</button>
+                  <button className="bg-emerald-600 w-[100px] rounded-2xl cursor-pointer h-[35px]"> Edit</button>
+                </div>  
+                </div>         
              
                </div>
         </div>
