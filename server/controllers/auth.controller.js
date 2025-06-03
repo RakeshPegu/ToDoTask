@@ -12,20 +12,23 @@ export const register = async(req, res)=>{
         if(existingUser){
             return res.status(401).json({success:false, message:'Email address already exist'})
         }
+        
         const response =await Otp.findOne({email})
-        console.log(response)
-        /*if(response.length === 0){
+        console.log('this is the response', typeof response.otp)
+        console.log( typeof otp)
+        if(!response){
             return res.status(401).json({success:false, message:"Otp is not valid"})
-        }else if(otp !== response[0].otp){
+        }else if(otp !== response.otp){
             return res.status(401).json({success:false, message:"Otp is not valid"})
         }
         const hashedPassword = await bcrypt.hash(password, 10)
-        const newUser = await User.create({email, username, password:hashedPassword})*/
+        const newUser = await User.create({email, username, password:hashedPassword})
         res.status(200).json({success:false, message:'Registered successfully'})
 
         
     } catch (error) {
         console.log('error', error)
+        res.status(500).json({success:false, message:"Something went wrong"})
     }
 }
 export const OtpVerification = async(req, res)=>{
@@ -36,11 +39,24 @@ export const OtpVerification = async(req, res)=>{
             return res.status(403).json({message:'User already exist'})
 
         } 
-            const otp = otpGenerator.generate(6, {
+            let otp = otpGenerator.generate(6, {
             specialChars:false,
             upperCaseAlphabets:false,
             lowerCaseAlphabets:false
         })
+        const result = await Otp.findOne({otp:otp})
+        while(result){
+            otp = otpGenerator.generate(6, {
+                specialChars:false,
+                upperCaseAlphabets:false,
+                lowerCaseAlphabets:false
+            }
+                
+            )
+
+
+        }
+        console.log(typeof otp)
         const otpPayload = {email, otp}
         console.log(otpPayload)
         const otpBody = await Otp.create(otpPayload)
