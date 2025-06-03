@@ -78,14 +78,15 @@ export const login = async(req, res)=>{
         }
         const user = await User.findOne({email:email})
         if(!user){
-            return res.status(404).json({sucess:false, message:'Email address already exist'})
+            return res.status(404).json({sucess:false, message:'User not found'})
         }
         const isValidPassword = await bcrypt.compare(password, user.password)
         if(!isValidPassword){
             return res.status(403).json({success:false, message:'Wrong password'})
         }
         const age = 1000*60*60*24*7
-        const token = jwt.sign(req.userId = user.id,process.env.SECRET_KEY, {expiresIn:age} )
+        console.log(user.id)
+        const token = jwt.sign({id:user.id},process.env.SECRET_KEY, {expiresIn:age} )
         res.cookie('token', token, {maxAge:age, secure:false}).status(200).json({success:true, message:'Logged in successfully'})
         
         
