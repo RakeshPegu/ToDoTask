@@ -4,5 +4,5 @@ const router = express.Router()
 router.post('/register',register)
 router.post('/login',login )
 router.post('/logout',logout)
-router.post('/sendOtp', OtpVerification)
+router.post('/send_otp', OtpVerification)
 export default router;

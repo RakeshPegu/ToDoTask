@@ -1,5 +1,5 @@
 import axios from 'axios'
 export const apiRequest = new axios.create({
-    baseURL:process.env.BACKEND_URL,
+    baseURL:'http://localhost:5000/api/v1',
     withCredentials:true
 })

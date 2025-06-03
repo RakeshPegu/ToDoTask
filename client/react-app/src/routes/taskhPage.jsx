@@ -8,14 +8,7 @@ function TaskPage(){
         <div className="bg-sky-300 flex flex-wrap justify-center gap-15  h-[100vh] overflow-y-scroll ">
            <Link to={'/create_task'}> <Plus/></Link>
             <TaskCard/>
-             <TaskCard/>
-              <TaskCard/>
-               <TaskCard/>
-                <TaskCard/>
-                 <TaskCard/>
-                  <TaskCard/>
-                   <TaskCard/>
-             
+                         
             </div>
     )
 }

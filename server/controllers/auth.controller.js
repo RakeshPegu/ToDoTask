@@ -13,13 +13,14 @@ export const register = async(req, res)=>{
             return res.status(401).json({success:false, message:'Email address already exist'})
         }
         const response =await Otp.findOne({email})
-        if(response.length === 0){
+        console.log(response)
+        /*if(response.length === 0){
             return res.status(401).json({success:false, message:"Otp is not valid"})
         }else if(otp !== response[0].otp){
             return res.status(401).json({success:false, message:"Otp is not valid"})
         }
         const hashedPassword = await bcrypt.hash(password, 10)
-        const newUser = await User.create({email, username, password:hashedPassword})
+        const newUser = await User.create({email, username, password:hashedPassword})*/
         res.status(200).json({success:false, message:'Registered successfully'})
 
         
@@ -41,7 +42,9 @@ export const OtpVerification = async(req, res)=>{
             lowerCaseAlphabets:false
         })
         const otpPayload = {email, otp}
+        console.log(otpPayload)
         const otpBody = await Otp.create(otpPayload)
+        console.log(otpBody)
         res.status(200).json({success:true, message:"Otp send successfully", otp})     
 
 

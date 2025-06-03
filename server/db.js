@@ -26,20 +26,16 @@ const userSchema = new mongoose.Schema({
     }
 })
 const otpSchema = mongoose.Schema({
-    otp:Number,
-    authorId: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    } ,
+    otp:{
+        type: String,
+        unique:true
+
+    },
     email: {
         type: String,
         required:true,
         unique:true
 
-    },
-    expiration: {
-        type:Date,
-        default: Date.now + 6000
     },
     created_at: {
         type:Date,
@@ -58,8 +54,11 @@ const taskSchema = mongoose.Schema({
     description: {
         type: String,
     },
-    timePeriod: {
-        type: String
+    startTime: {
+        type:Date
+    }, 
+    endTime: {
+        type:Date
     },
     created_at: {
         type: Date,
@@ -76,10 +75,12 @@ const taskSchema = mongoose.Schema({
 
 })
 const sendOtpVerificationEmail = async(otp, email)=>{
+    console.log(otp)
+    console.log(email)
     try {
-        await mailSender(email, "Verification Email",
-			`<h1>Please confirm your OTP </h1>
-             <p> here is your OTP code:-> ${otp} </p>`)      
+        await mailSender(email,
+            `<h1>Please confirm your OTP </h1>
+             <h3> here is your OTP code:-> ${otp} </h3>`)      
         
         
     } catch (error) {
@@ -87,10 +88,11 @@ const sendOtpVerificationEmail = async(otp, email)=>{
         
     }
 }
-otpSchema.pre('save', async(next)=>{
-    if(this.isNew){
-        await sendOtpVerification(this.email, this.otp)
-    }
+otpSchema.pre('save', async function(next){
+    console.log('new document save to database')
+    
+    console.log(this.email, this.otp)
+    await sendOtpVerificationEmail(this.otp, this.email)    
     next()
 })
 const User = mongoose.model('User', userSchema)
